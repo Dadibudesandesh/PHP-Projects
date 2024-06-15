@@ -1,0 +1,63 @@
+<?php
+include 'components/conn.php';
+// $send = false;
+if (isset($_POST['submit'])) {
+    $table = "CREATE TABLE IF NOT EXISTS contact (
+    name VARCHAR(20) NOT NULL,
+    email VARCHAR(35) NOT NULL,
+    phone BIGINT(10) NOT NULL
+)";
+    $createTable = mysqli_query($conn, $table);
+    $name = $_POST['name'];
+    $mail = $_POST['email'];
+    $phone = $_POST['phone'];
+    $insertData = "INSERT INTO contact (name, email, phone) VALUES ('$name', '$mail', '$phone')";
+    $result = mysqli_query($conn, $insertData);
+    if ($result) {
+     echo "<script> alert('Thanks For Contacting Us')  </script>";
+    
+    }
+    $conn->close();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contact-us</title>
+</head>
+
+<body>
+    <?php
+    include 'components/nav.php';
+    ?>
+   
+    <form name="frmContact" method="post" action="contact.php">
+        <legend>Contact Us</legend>
+        <p>
+            <label for="name">Name : </label>
+            <input type="text" name="name" id="name" required class="input" maxlength="20">
+        </p>
+        <p>
+            <label for="email">Email : </label>
+            <input type="text" name="email" id="email" required class="input" maxlength="35">
+        </p>
+        <p>
+            <label for="phone">Phone : </label>
+            <input type="text" name="phone" id="phone" required class="input" maxlength="10">
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            <input type="submit" name="submit" id="Submit" value="Submit" class="btn">
+            <!-- <input type="button" value="BACK" onclick="history.back()" class="btn"> -->
+        </p>
+    </form>
+</body>
+
+</html>
